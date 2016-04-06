@@ -1,14 +1,10 @@
 #!/usr/bin/python
-import SimpleHTTPServer
-import SocketServer
 import paho.mqtt.client as mqtt
 
-PORT = 8000
-Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-httpd = SocketServer.TCPServer(("", PORT), Handler)
+client = mqtt.Client()
 
 def write_value(value):
-    index_file = open("index.html", "w")
+    index_file = open("/var/www/html/index.html", "w")
     index_file.write(value)
     index_file.close()
 
@@ -33,10 +29,7 @@ def connect_broker():
     client.connect("localhost")
 	
 def main():
-    connect_broker()
-    print("Web: Serving at port ", PORT)
-    httpd.serve_forever()
-    
+    connect_broker()    
     client.subscribe("messwerte/test", qos=1)
     client.loop_forever()
     
