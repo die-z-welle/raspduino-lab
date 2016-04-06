@@ -1,0 +1,12 @@
+#Config File for mosquitto
+#start mosquitto with:
+#sudo mosquitto -d -c /home/pi/Desktop/projektli/mosquitto_config
+
+#gernal config
+
+#listeners
+bind_address localhost
+
+
+
+
