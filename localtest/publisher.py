@@ -1,11 +1,10 @@
 #!/usr/bin/python
 import paho.mqtt.client as mqtt
-from nanpy import ArduinoApi
-from nanpy import SerialManager
-from time import sleep
+import time
 
+#MQTT Client
 client = mqtt.Client()
-PIN = 0
+
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -23,20 +22,15 @@ def connect_broker():
 
 def main():
     connect_broker()
-
-    connection = SerialManager(device='/dev/ttyACM0')
-    a = ArduinoApi(connection=connection)
-    a.pinMode(PIN, a.INPUT)
-
+    value = 0
     try:
         client.loop_start()
         while True:
-            value = a.analogRead(PIN)
             client.publish("messwerte/test", str(value), qos=1)
-            print "value:" + str(value)
-            sleep(1)
+            value += 1
+            time.sleep(5)
     except:
         client.loop_stop()
-        print("publisher stopped")
-
+        print("Publisher: stoped")
+        
 main()
