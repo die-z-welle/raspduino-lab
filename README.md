@@ -13,7 +13,7 @@ Prerequisites:
 python libraries setup:
 
     pip install nanpy
-    pip install paho.mqtt.client
+    pip install paho-mqtt
   
 npm libraries setup:
 
